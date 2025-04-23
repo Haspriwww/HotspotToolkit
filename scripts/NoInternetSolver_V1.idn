@@ -1,0 +1,64 @@
+Write-Host "IDN Boarding School - Hotspot Toolkit v1.2"
+Write-Host "Script ini dibuat pada 10:49 AM 09/07/2023"
+Write-Host "=========================================="
+Write-Host ""
+
+# Ask the user for their current location
+Write-Host "Dimanakah anda sekarang?"
+Write-Host "[1] Gedung Lama 1: 192.168.20.X"
+Write-Host "[2] Gedung Lama 2: 192.168.21.X"
+Write-Host "[3] Gedung Baru: 192.168.100.X"
+Write-Host "[4] Saung / Luar Gedung: 192.168.11.X"
+Write-Host ""
+$locationChoice = Read-Host "Pilih nomor lokasi (1/2/3/4):"
+
+# Define the Wi-Fi network name
+$wifiName = "IDN Boarding School"
+Write-Host "WiFi: $wifiName."
+Write-Host "Mematikan koneksi Wi-Fi, mohon tunggu."
+# Disconnect from the Wi-Fi network
+netsh wlan disconnect
+
+# Generate the appropriate IP address based on user's choice
+switch ($locationChoice) {
+    "1" {
+        $subnet = "192.168.20"
+    }
+    "2" {
+        $subnet = "192.168.21"
+    }
+    "3" {
+        $subnet = "192.168.100"
+    }
+    "4" {
+        $subnet = "192.168.11"
+    }
+    default {
+        Write-Host "Pilihan lokasi tidak valid. Keluar dari script."
+        exit
+    }
+}
+
+# Generate a random number between 100 and 255 for the last octet of the IP address
+$randomLastOctet = Get-Random -Minimum 150 -Maximum 256
+
+# Set the static IP address with the generated last octet
+$ipAddress = "$subnet.$randomLastOctet"
+$subnetMask = "255.255.255.0"
+$gateway = "$subnet.1"
+$dnsServer = "8.8.8.8"  # You can change this to your preferred DNS server
+
+Write-Host "Target IP Nanti Jadi: $ipAddress."
+# Set the static IP address configuration
+Write-Host "Disettingin dulu bang ke sistem, bentar."
+New-NetIPAddress -InterfaceAlias Wi-Fi -IPAddress $ipAddress -PrefixLength 24 -DefaultGateway $gateway
+Write-Host "Oke, sekarang kita settingin DNS-nya ke $dnsServer."
+Set-DnsClientServerAddress -InterfaceAlias Wi-Fi -ServerAddresses $dnsServer
+
+# Reconnect to the Wi-Fi network
+Write-Host "DON. Sekarang kita konek lagi ke $wifiName."
+netsh wlan connect name="$wifiName"
+
+# Display the configured IP address
+Write-Host "Berhasil terkoneksi ke $wifiName dengan IP: $ipAddress"
+Write-Host "Kalo kena error/bentrok, jalanin script ini lagi sampe kagak kena."

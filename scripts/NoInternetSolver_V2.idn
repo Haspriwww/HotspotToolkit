@@ -1,0 +1,22 @@
+Write-Host "IDN Boarding School - Hotspot Toolkit v1.2"
+Write-Host "Script ini dibuat pada 11:01 AM 09/07/2023"
+Write-Host "=========================================="
+Write-Host ""
+# Disconnect from the WiFi network
+Write-Host "Disconnect dulu bang dari Wi-Fi bang."
+netsh wlan disconnect
+
+# Set the IP configuration to dynamic (DHCP)
+Write-Host "Kita ubah IP-nya ke Dynamic gak apa apa ya bang."
+$adapter = Get-NetAdapter | Where-Object { $_.Status -eq 'Up' }
+$interfaceIndex = $adapter.InterfaceIndex
+Write-Host "Mengubah IPv4 ke tipe dinamik khususnya buat Wi-Fi"
+netsh interface ipv4 set address "Wi-Fi" dhcp
+Write-Host "Wooke, dah bang. Sekarang kita coba konek lagi."
+
+# Reconnect to the WiFi network
+$wifiProfile = "IDN Boarding School" # Replace with your WiFi SSID
+netsh wlan connect name="$wifiProfile"
+Write-Host "Sudah selesai ya bang."
+Write-Host "Kalo kena error/bentrok, dicoba lagi."
+

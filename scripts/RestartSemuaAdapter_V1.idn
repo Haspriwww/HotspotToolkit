@@ -1,0 +1,20 @@
+Write-Host "IDN Boarding School - Hotspot Toolkit v1.2"
+Write-Host "Script ini dibuat pada 10:26 AM 09/07/2023"
+Write-Host "=========================================="
+Write-Host ""
+# Log messages
+Write-Host "Mengambil semua data informasi adapter tersedia..."
+$adapters = Get-NetAdapter
+Write-Host "Terdeteksi " $adapters.Count " adapter."
+
+# Restart each network adapter
+foreach ($adapter in $adapters) {
+    Write-Host "Mematikan adapter $($adapter.Name), mohon tunggu..."
+    Disable-NetAdapter -Name $adapter.Name -Confirm:$false
+    Write-Host "Menyalakan kembali adapter $($adapter.Name), mohon tunggu..."
+    Enable-NetAdapter -Name $adapter.Name
+}
+
+# Display a completion message
+Write-Host "Semua adapter telah berhasil di restart."
+Write-Host ""
