@@ -12,12 +12,11 @@
 
 ## 🌐 Tentang Proyek
 
-**Hotspot Toolkit** adalah software amal yang dibuat untuk membantu mengurangi dan mencegah masalah koneksi WiFi di **IDN Boarding School**.  
-Dibangun dengan penuh dedikasi oleh **Akmal Pratama** pada tahun 2023.
+**Hotspot Toolkit** adalah software amal yang dibuat untuk membantu mengurangi dan mencegah masalah koneksi WiFi di **IDN Boarding School**. Dibangun dengan penuh dedikasi dan seorang diri oleh **Akmal Pratama** pada tahun 2023.
 
 ---
 
-## ⚙️ Teknologi yang Digunakan
+## ⚙️ Teknologi Digunakan:
 
 - 💻 Bahasa Pemrograman: **C#**
 - 🧰 Framework: **.NET Framework 4.5**
@@ -25,7 +24,7 @@ Dibangun dengan penuh dedikasi oleh **Akmal Pratama** pada tahun 2023.
 
 ---
 
-## 📥 Cara Mengunduh
+## 📥 Cara Download:
 
 Aplikasi sudah *precompiled* dan siap diunduh langsung di halaman:  
 👉 **[Releases](../../releases)**
